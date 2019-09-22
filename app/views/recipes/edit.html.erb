@@ -1,0 +1,21 @@
+<% require 'json' %>
+
+<script>console.log(<%= raw @usda_search_results.to_json %>);</script>
+
+<h1>Editing Recipe</h1>
+
+<div id="usda-recipe-ingredients" class="container-fliud px-0 py-3 bg-light">
+    <div class="centerize ctz-md px-2">
+        <div class="container-fluid px-0 py-3">
+              <%= link_to 'Show', @recipe %> | <%= link_to 'Back', recipes_path %>
+        </div>
+    </div>
+</div>
+
+<div id="edit-recipe-form" class="container-fluid px-0 py-5">
+    <div class="centerize ctz-md px-2">
+        <div class="container-fluid px-0">
+            <%= render 'form', recipe: @recipe %>
+        </div>
+    </div>
+</div>

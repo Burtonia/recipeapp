@@ -1,0 +1,198 @@
+<%= form_with(model: recipe, local: true) do |form| %>
+
+<!-- Recipe General Info -->
+    <div class="card px-3 py-3 mb-3">
+        <div class="container-fluid px-0">
+            <h2>Recipe Information</h2>
+        </div>
+        <div class="container-fluid px-0">
+            <div class="row">
+
+                <div class="col-12">
+                    <% if recipe.errors.any? %>
+                      <div id="error_explanation">
+                        <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+                        <ul>
+                        <% recipe.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                </div>
+
+                <div class="col-12">
+                    <div class="hidden-form-group">
+                      <%= form.hidden_field :user_id, value: current_user.id, id: :recipe_user_id, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                      <%= form.label :title %>
+                      <%= form.text_field :title, id: :recipe_title, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                      <%= form.label :servings %>
+                      <%= form.text_field :servings, id: :recipe_servings, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                      <%= form.label :prep_time %>
+                      <%= form.text_field :prep_time, id: :recipe_prep_time, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                      <%= form.label :cook_time %>
+                      <%= form.text_field :cook_time, id: :recipe_cook_time, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :serving_size %>
+                      <%= form.text_field :serving_size, id: :recipe_serving_size, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :calories %>
+                      <%= form.text_field :calories, id: :recipe_calories, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :total_fat %>
+                      <%= form.text_field :total_fat, id: :recipe_total_fat, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :total_carb %>
+                      <%= form.text_field :total_carb, id: :recipe_total_carb, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :total_fiber %>
+                      <%= form.text_field :total_fiber, id: :recipe_total_fiber, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :total_sugar %>
+                      <%= form.text_field :total_sugar, id: :recipe_total_sugar, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-3">
+                    <div class="form-group">
+                      <%= form.label :total_protein %>
+                      <%= form.text_field :total_protein, id: :recipe_total_protein, class: 'form-control' %>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                      <%= form.label :nutrition_notes %>
+                      <%= form.text_area :nutrition_notes, id: :recipe_nutrition_notes, class: 'form-control' %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- .card -->
+
+<!-- Recipe Ingredients -->
+    <div class="card px-3 py-3 mb-3">
+        <div class="container-fluid px-0">
+            <h2>Recipe Ingredients</h2>
+        </div>
+
+
+        <div class="container-fluid px-0 py-4">
+
+            <%= render 'recipes/search_ingredients' %>
+
+        </div>
+
+        <div class="container-fluid px-0">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="form-group">
+
+                      <%= form.text_area :recipe_ingredients, id: :recipe_recipe_ingredients, class: 'form-control', style: 'height:400px;' %>
+                      <div id="recipe-ingredient-table-wrap">
+                          <table id="recipe-ingredient-table" class="table">
+                              <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Ingredient Name</th>
+                                      <th class="sm-col">Qty</th>
+                                      <th class="sm-col">Unit</th>
+                                      <th>X</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="sortable-ingredients">
+                                  <!-- Ingredients Append In Here -->
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<!-- Recipe Directions -->
+    <div class="card px-3 py-3 mb-3">
+        <div class="container-fluid px-0">
+            <h2>Recipe Directions</h2>
+        </div>
+        <div class="container-fluid px-0">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="form-group">
+                      <%= form.label :directions %>
+                      <%= form.text_area :directions, id: :recipe_directions, class: 'form-control' %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<!-- Submit Action -->
+    <div class="card px-3 py-3 mb-3">
+        <div class="container-fluid px-0">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="actions text-center">
+                      <%= form.submit 'Submit', id: 'submit-recipe', class: 'btn btn-lg btn-success' %>
+                    </div>
+                </div>
+
+            </div> <!-- .row -->
+        </div> <!-- .container-fluid px-0 -->
+    </div> <!-- .card -->
+<% end %>
+
+<%= javascript_include_tag 'recipe', 'data-turbolinks-track': 'reload' %>

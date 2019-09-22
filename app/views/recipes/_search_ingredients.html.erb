@@ -1,0 +1,44 @@
+
+
+<div class="input-group mb-3">
+    <input id="ingredient-query" type="text" class="form-control" placeholder="Search Ingredients">
+    <div class="input-group-append">
+        <button id="ingredient-search" class="btn btn-outline-secondary" type="button">Search</button>
+    </div>
+</div>
+
+<% if params['q'] %>
+    <div class="card px-3 py-3" style="max-height:400px; overflow-y:scroll;">
+        <table id="ingredient-table" class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>UPC</th>
+                    <th><button class="btn btn-sm btn-success">+</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @usda_search_results.each do |res| %>
+                    <tr>
+                        <td><%= res['offset'] + 1 %></td>
+                        <td><%= res['name'].split('UPC: ')[0] %></td>
+                        <td><%= res['name'].split('UPC: ')[1] %></td>
+                        <td>
+                            <button
+                                class="add-recipe-ingredient btn btn-sm btn-success"
+                                type="button"
+                                data-offset="<%= res['offset'] + 1 %>"
+                                data-name="<%= res['name'].split('UPC')[0] %>"
+                                data-ndbno="<%= res['ndbno'] %>"
+                                data-group="<%= res['group'] %>"
+                                data-source="<%= res['ds'] %>"
+                                data-upc="<%= res['name'].split('UPC')[1] %>"
+                            >+</button>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+<% end %>

@@ -1,0 +1,23 @@
+<div class="container-fluid px-0">
+    <nav class="navbar navbar-dark bg-inverse bg-primary text-white">
+
+        <!-- Nav Brand -->
+        <%= link_to "Recipe App", root_path, class: 'navbar-brand' %>
+
+        <!-- Menu Button -->
+        <button class="navbar-toggler hidden-sm-up nav-link" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="true" aria-label="Toggle navigation">
+          &#9776;
+        </button>
+
+        <!-- Menu Container -->
+        <div class="collapse navbar-collapse collapse-md navbar-toggleable-xs" id="exCollapsingNavbar2">
+
+            <!-- Menu List Items -->
+            <ul class="nav navbar-nav justify-content-center">
+                <%= render 'layouts/navigation_links' %>
+            </ul>
+
+        </div>
+
+    </nav>
+</div>

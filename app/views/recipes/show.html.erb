@@ -1,0 +1,162 @@
+<% require 'json' %>
+<div id="notice" class="card"><%= notice %></div>
+
+<div id="show-recipe" class="container-fluid px-0">
+    <div class="centerize ctz-md px-2">
+
+        <div class="container-fluid px-0 my-4">
+            <div class="card px-3 py-3">
+                <div class="row">
+                    <div class="col-6 col-sm-3 text-center">
+                        <%= link_to 'Edit', edit_recipe_path(@recipe), class: 'btn btn-sm btn-primary text-white' %>
+                    </div>
+                    <div class="col-6 col-sm-3 text-center">
+                        <%= link_to 'Back', recipes_path, class: 'btn btn-sm btn-primary text-white' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid px-0 mb-4">
+            <div class="row">
+
+                <div class="col-12 col-sm-6 mb-4">
+                    <div class="card px-3 py-3">
+                        <table id="recipe-info-table" class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Title</th>
+                                    <td><%= @recipe.title %></td>
+                                </tr>
+                                <tr>
+                                    <th>Serving size</th>
+                                    <td><%= @recipe.serving_size %></td>
+                                </tr>
+                                <tr>
+                                    <th>Servings</th>
+                                    <td><%= @recipe.servings %></td>
+                                </tr>
+                                <tr>
+                                    <th>Calories</th>
+                                    <td><%= @recipe.calories %></td>
+                                </tr>
+                                <tr>
+                                    <th>Prep Time</th>
+                                    <td><%= @recipe.prep_time %> min</td>
+                                </tr>
+                                <tr>
+                                    <th>Cook time</th>
+                                    <td><%= @recipe.cook_time %> min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 mb-4">
+                    <div class="card px-3 py-3">
+                        <table id="recipe-macro-table" class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Total fat</th>
+                                    <td><%= @recipe.total_fat %>g</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Total carb</th>
+                                    <td><%= @recipe.total_carb %>g</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Total fiber</th>
+                                    <td><%= @recipe.total_fiber %>g</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Total sugar</th>
+                                    <td><%= @recipe.total_sugar %>g</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Total protein</th>
+                                    <td><%= @recipe.total_protein %>g</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card px-3 py-3">
+                        <label><strong>Nutrition notes</strong></label>
+                        <p><%= @recipe.nutrition_notes %></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid px-0 mb-4">
+            <div class="card px-3 py-3">
+                <% if @recipe.recipe_ingredients.to_s.length > 0 %>
+                    <p>
+                      <strong>Ingredients:</strong>
+                      <% recipe_ingredients  = JSON.parse(@recipe.recipe_ingredients) %>
+                      <table id="show-recipe-ingredients-table" class="table">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Ingredient</th>
+                                  <th>Qty</th>
+                                  <th>Unit</th>
+                                  <th>NDB#</th>
+                                  <th>UPC</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% recipe_ingredients.each do |ingredient| %>
+                                  <tr>
+                                      <td><%= ingredient['order'] %></td>
+                                      <td><%= ingredient['custom_name'] ? ingredient['custom_name'] : ingredient['usda_name'] %></td>
+                                      <td><%= ingredient['qty'] %></td>
+                                      <td><%= ingredient['unit'] %></td>
+                                      <td><%= link_to ingredient['ndbno'], ingredient['ndbno'] ? "https://ndb.nal.usda.gov/ndb/foods/show/#{ingredient['ndbno']}" : '#', target: '_blank' %></td>
+                                      <td><%= link_to ingredient['upc'], ingredient['upc'] ? "https://www.barcodelookup.com/#{ingredient['upc']}" : '#', target: '_blank' %></td>
+                                  </tr>
+                              <% end %>
+                          </tbody>
+                      </table>
+                    </p>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="container-fluid px-0 mb-4">
+            <div class="card px-3 py-3">
+                <% if @recipe.directions.to_s.length > 0 %>
+                    <p>
+                      <strong>Directions:</strong>
+                      <% recipe_directions  = JSON.parse(@recipe.directions) %>
+                      <table id="recipe-directions-table" class="table">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Direction</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% recipe_directions.each do |direction| %>
+                                  <tr>
+                                      <td><%= direction['id'] %></td>
+                                      <td><%= direction['text'] %></td>
+                                  </tr>
+                              <% end %>
+                          </tbody>
+                      </table>
+                    </p>
+                <% end %>
+            </div>
+        </div>
+
+    </div>
+</div>

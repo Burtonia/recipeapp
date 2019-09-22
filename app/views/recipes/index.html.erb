@@ -1,0 +1,82 @@
+<!--
+  Recipes:
+      :User
+      :Title
+      :Servings
+      :Prep time
+      :Cook time
+      :Directions
+      :Serving size
+      :Calories
+      :Total fat
+      :Total carb
+      :Total fiber
+      :Total sugar
+      :Total protein
+      :Nutrition notes
+-->
+
+<div id="recipes" class="container-fluid px-0">
+
+    <!-- Recipes Header -->
+    <section id="recipes-header" class="container-fluid px-0">
+        <div class="jumbotron">
+            <h1>Recipes</h1>
+            <p class="h2">Explore your Recipe Library</p>
+            <%= link_to 'New Recipe', new_recipe_path, class: 'btn btn-lg btn-success text-white' %>
+        </div>
+    </section>
+
+</div>
+
+<div id="recipes-body" class="container-fluid px-0">
+    <div class="centerize ctz-md px-2">
+        <div class="container-fluid px-0">
+            <!-- Recipes Table -->
+            <table id="recipes-table" class="table">
+                <thead>
+                    <tr>
+                        <th style="min-width:200px;">Recipe Name</th>
+                        <th>Time</th>
+                        <th>Svg</th>
+                        <th>Svgs</th>
+                        <th>KCal</th>
+                        <th>Fat</th>
+                        <th>Carb</th>
+                        <th>Prot</th>
+                        <th>Edit</th>
+                        <th>DEL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @recipes.each do |recipe| %>
+
+                        <tr data-user="<%= recipe.user_id %>">
+                            <td style="min-width:200px;"><%= link_to recipe.title, recipe %></td>
+                            <td><%= recipe.prep_time + recipe.cook_time %></td>
+                            <td><%= recipe.serving_size %></td>
+                            <td><%= recipe.servings %></td>
+                            <td><%= recipe.calories %></td>
+                            <td><%= recipe.total_fat %>g</td>
+                            <td><%= recipe.total_carb %>g</td>
+                            <td><%= recipe.total_protein %>g</td>
+                            <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+                            <td><%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        </tr>
+
+                        <tr data-user="<%= recipe.user_id %>" style="height:0; opacity:0; display:none;">
+                            <td colspan="11">
+                                <div><%= recipe.directions %></div>
+                                <div>><%= recipe.total_fiber %></div>
+                                <div><%= recipe.total_sugar %></div>
+                                <div><%= recipe.nutrition_notes %></div>
+                            </td>
+                        </tr>
+
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipeapp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <div id="recipe-app">
+          <div class="centerize ctz-xl">
+              <div class="container-fluid px-0">
+                  <!-- Header -->
+                  <header>
+                      <div id="navigation">
+                          <%= render 'layouts/navigation' %>
+                      </div>
+                      <div id="messages">
+                          <%= render 'layouts/messages' %>
+                      </div>
+                  </header>
+                  <!-- Main -->
+                  <main role="main">
+
+                      <div id="yield" class="container-fluid px-0">
+                          <!-- Yield Entry Point -->
+                          <%= yield %>
+                      </div>
+                  </main>
+              </div>
+          </div>
+      </div>
+  </body>
+</html>

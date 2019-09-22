@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: MyString
+  title: MyString
+  servings: 9.99
+  prep_time: 9.99
+  cook_time: 9.99
+  directions: MyText
+  serving_size: MyString
+  calories: 9.99
+  total_fat: 9.99
+  total_carb: 9.99
+  total_fiber: 9.99
+  total_sugar: 9.99
+  total_protein: 9.99
+  nutrition_notes: MyText
+
+two:
+  user_id: MyString
+  title: MyString
+  servings: 9.99
+  prep_time: 9.99
+  cook_time: 9.99
+  directions: MyText
+  serving_size: MyString
+  calories: 9.99
+  total_fat: 9.99
+  total_carb: 9.99
+  total_fiber: 9.99
+  total_sugar: 9.99
+  total_protein: 9.99
+  nutrition_notes: MyText
