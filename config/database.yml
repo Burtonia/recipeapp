@@ -40,7 +40,7 @@ production:
   # username: recipeapp
   # password:
   url: <%= ENV['DATABASE_URL'] %>
-  host: 127.0.0.1
+  # host: 127.0.0.1
 
 
 
