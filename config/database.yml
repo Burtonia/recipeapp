@@ -33,6 +33,7 @@ test:
 
 production:
   url: <%= ENV['DATABASE_URL'] %>
+  database: recipeapp_production
 
 
 
