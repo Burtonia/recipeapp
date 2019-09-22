@@ -218,7 +218,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
-  mysql2
+  mysql2 (~> 0.3.11)
   puma (~> 3.7)
   rails (~> 5.1.6)
   sass-rails (~> 5.0)
