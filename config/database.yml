@@ -33,14 +33,7 @@ test:
 
 production:
   adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  # database: recipeapp_production
-  pool: 5
-  # username: recipeapp
-  # password:
   url: <%= ENV['DATABASE_URL'] %>
-  # host: 127.0.0.1
 
 
 
