@@ -88,6 +88,9 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  ENV['DATABASE_URL'] = 'mysql://bc78bda334ad55:b2a026d5@us-cdbr-iron-east-02.cleardb.net/heroku_e9cd220ddb517c3?reconnect=true'
+  
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
