@@ -32,7 +32,6 @@ test:
   host: localhost
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
   adapter: mysql2
   encoding: utf8
   reconnect: false
@@ -40,6 +39,7 @@ production:
   pool: 5
   # username: recipeapp
   # password:
+  url: <%= ENV['DATABASE_URL'] %>
   host: 127.0.0.1
 
 
