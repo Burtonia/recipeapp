@@ -43,9 +43,9 @@ gem 'jquery-rails'
 # jQuery UI Rails #
 gem 'jquery-ui-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # jQuery Turbolinks
-gem 'jquery-turbolinks'
+# gem 'jquery-turbolinks'
 # Bootstrap 4 CSS/JS #
 gem 'bootstrap', '~> 4.3.1'
 # Paperclip Gem for Files

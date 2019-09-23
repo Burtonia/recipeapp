@@ -1,5 +1,8 @@
+console.log('recipe: outside jQuery');
+
 jQuery(document).ready(function($) {
-    $(document).on('turbolinks:load', function() {
+    console.log('recipe: inside jQuery');
+
         // Define Table Mount
         var mount_table = $('#recipe-ingredient-table tbody');
         var ingr_data = $('#recipe_recipe_ingredients');
@@ -225,5 +228,4 @@ jQuery(document).ready(function($) {
         //     render_ingredient_row(mount_table, ingr_row);
         // }
 
-    });
 });
