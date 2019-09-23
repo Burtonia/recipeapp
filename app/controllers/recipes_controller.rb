@@ -2,6 +2,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   require 'json'
+  require 'net/http'
 
   # GET /recipes
   # GET /recipes.json
