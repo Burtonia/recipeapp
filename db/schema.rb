@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190916211132) do
+ActiveRecord::Schema.define(version: 20190923002013) do
 
   create_table "recipes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "user_id"
@@ -30,6 +30,10 @@ ActiveRecord::Schema.define(version: 20190916211132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "recipe_ingredients"
+    t.string "featured_image_file_name"
+    t.string "featured_image_content_type"
+    t.integer "featured_image_file_size"
+    t.datetime "featured_image_updated_at"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 

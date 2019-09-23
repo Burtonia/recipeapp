@@ -28,23 +28,25 @@ class RecipesController < ApplicationController
   # GET /recipes/1/edit
   def edit
 
-    # ~~~ USDA API with Net::HTTP ~~~ #
-    # /report/{id} result usda_result['report']['food']['nutrients']
-    usda_api_url = 'https://api.nal.usda.gov/ndb/'
-    usda_api_lib = 'search'; # reports, search,
-    usda_api_endpoint = URI(usda_api_url + usda_api_lib)
-    usda_api_key = 'rRdvmGn8kjLwJrX3k3fFe3nNWLT2ACCfEQNew7Ib'
+    if params['q']
+        # ~~~ USDA API with Net::HTTP ~~~ #
+        # /report/{id} result usda_result['report']['food']['nutrients']
+        usda_api_url = 'https://api.nal.usda.gov/ndb/'
+        usda_api_lib = 'search'; # reports, search,
+        usda_api_endpoint = URI(usda_api_url + usda_api_lib)
+        usda_api_key = 'rRdvmGn8kjLwJrX3k3fFe3nNWLT2ACCfEQNew7Ib'
 
-    request_uri = URI(usda_api_endpoint)
-    uri_params = { :api_key => usda_api_key, :q => params['q'], :format => 'json' } # :ndbno => '01009'
-    request_uri.query = URI.encode_www_form(uri_params)
-    response = Net::HTTP.get(request_uri)
-    # @usda_result = JSON.parse(response)
-    usda_result = JSON.parse(response)
-    # https://stackoverflow.com/questions/288715/checking-if-a-variable-is-defined
-    if !(defined?(usda_result['list']['item'])).nil?
-      @usda_search_results = usda_result['list']['item']
-      @usda_json_results = jsonify(@usda_json_results)
+        request_uri = URI(usda_api_endpoint)
+        uri_params = { :api_key => usda_api_key, :q => params['q'], :format => 'json' } # :ndbno => '01009'
+        request_uri.query = URI.encode_www_form(uri_params)
+        response = Net::HTTP.get(request_uri)
+        # @usda_result = JSON.parse(response)
+        usda_result = JSON.parse(response)
+        # https://stackoverflow.com/questions/288715/checking-if-a-variable-is-defined
+        if !(defined?(usda_result['list']['item'])).nil?
+          @usda_search_results = usda_result['list']['item']
+          @usda_json_results = jsonify(@usda_json_results)
+        end
     end
 
   end
@@ -97,6 +99,6 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:user_id, :title, :servings, :prep_time, :cook_time, :recipe_ingredients, :directions, :serving_size, :calories, :total_fat, :total_carb, :total_fiber, :total_sugar, :total_protein, :nutrition_notes)
+      params.require(:recipe).permit(:user_id, :title, :featured_image, :servings, :prep_time, :cook_time, :recipe_ingredients, :directions, :serving_size, :calories, :total_fat, :total_carb, :total_fiber, :total_sugar, :total_protein, :nutrition_notes)
     end
 end
