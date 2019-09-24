@@ -29,7 +29,10 @@ class RecipesController < ApplicationController
   # GET /recipes/1/edit
   def edit
 
-    if params['q']
+  end
+
+  def usda_search
+    # if params['q']
         # ~~~ USDA API with Net::HTTP ~~~ #
         # /report/{id} result usda_result['report']['food']['nutrients']
         usda_api_url = 'https://api.nal.usda.gov/ndb/'
@@ -47,10 +50,14 @@ class RecipesController < ApplicationController
         if !(defined?(usda_result['list']['item'])).nil?
           @usda_search_results = usda_result['list']['item']
           @usda_json_results = jsonify(@usda_json_results)
+          render json: @usda_search_results
+        else
+          return false
         end
-    end
-
+    # end
   end
+
+
 
   # POST /recipes
   # POST /recipes.json

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
 
   # Define Web App Root
   root to: 'pages#home'
-
+  get 'usda_search', to: 'recipes#usda_search'
 
 end

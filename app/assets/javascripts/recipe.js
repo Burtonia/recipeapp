@@ -136,6 +136,29 @@ jQuery(document).ready(function($) {
             console.log({row_rendered: render_row_elem});
         }
 
+        // Render USDA Search Result Row
+        function render_usda_ingredient(mounting_point, usda_row) {
+            let render_row_elem = `<tr>
+                                      <td>${usda_row['offset'] + 1}</td>
+                                      <td>${usda_row['name'].split('UPC: ')[0]}</td>
+                                      <td>${usda_row['name'].split('UPC: ')[1]}</td>
+                                      <td>
+                                          <button
+                                              class="add-recipe-ingredient btn btn-sm btn-success"
+                                              type="button"
+                                              data-offset="${usda_row['offset'] + 1}"
+                                              data-name="${usda_row['name'].split('UPC')[0]}"
+                                              data-ndbno="${usda_row['ndbno']}"
+                                              data-group="${usda_row['group']}"
+                                              data-source="${usda_row['ds']}"
+                                              data-upc="${usda_row['name'].split('UPC')[1]}"
+                                          >+</button>
+                                      </td>
+                                  </tr>`;
+
+            mounting_point.append(render_row_elem);
+        }
+
         // Delete Ingredient
         function delete_ingredient(this_el) {
             if(this_el && this_el.attr('data-order')) {
@@ -158,45 +181,73 @@ jQuery(document).ready(function($) {
         // }
 
         // Search For Ingredient
-        $('#ingredient-search').on('click', function(){
+        $('#ingredient-search').on('click', function(e){
+          e.preventDefault();
+          console.log('--------- ingredient-search-clicked ----------')
           var search_val = $('#ingredient-query').val();
-          window.location.href = encodeURI('?q='+search_val);
+          //window.location.href = encodeURI('?q='+search_val);
+          $.ajax({
+              url: '/usda_search',
+              type: 'GET',
+              data: {q: search_val},
+              success: function(data, textStatus, jqXHR){
+                  console.log({success: data, textStatus: textStatus, jqXHR: jqXHR});
+                  let data_length = data.length;
+                  // Purge the old search results
+                  $('#ingredient-table tbody').empty();
+                  // Loop through data to add more
+                  for(d=0; d<data_length; d++) {
+                      // Render the AJAX Search results
+                      render_usda_ingredient($('#ingredient-table tbody'), data[d]);
+                  }
+                  // Reinitialize the Add Recipe Ingredient Script so it works
+                  add_recipe_ingredient();
+              },
+              error: function(message){
+                  console.log({error:message});
+              }
+          });
+
         });
 
         // Add Ingredient to Recipe
-        $('.add-recipe-ingredient').on('click', function() {
-            let data_offset = $(this).attr('data-offset');
-            let data_name = $(this).attr('data-name');
-            let data_ndbno = $(this).attr('data-ndbno');
-            let data_group = $(this).attr('data-group');
-            let data_source = $(this).attr('data-source');
-            let data_upc = $(this).attr('data-upc');
+        function add_recipe_ingredient() {
+            $('.add-recipe-ingredient').on('click', function() {
+                let data_offset = $(this).attr('data-offset');
+                let data_name = $(this).attr('data-name');
+                let data_ndbno = $(this).attr('data-ndbno');
+                let data_group = $(this).attr('data-group');
+                let data_source = $(this).attr('data-source');
+                let data_upc = $(this).attr('data-upc');
 
-            let mount_table = $('#recipe-ingredient-table tbody');
+                let mount_table = $('#recipe-ingredient-table tbody');
 
-            let count_rows = mount_table.children('tr').length;
+                let count_rows = mount_table.children('tr').length;
 
-            let ingr_row = {
-                order: count_rows + 1,
-                usda_name: data_name,
-                ndbno: data_ndbno,
-                group: data_group,
-                source: data_source,
-                upc: data_upc,
-            };
+                let ingr_row = {
+                    order: count_rows + 1,
+                    usda_name: data_name,
+                    ndbno: data_ndbno,
+                    group: data_group,
+                    source: data_source,
+                    upc: data_upc,
+                };
 
-            console.log(ingr_row);
+                console.log(ingr_row);
 
-            render_ingredient_row(mount_table, ingr_row);
+                render_ingredient_row(mount_table, ingr_row);
 
-            add_to_recipe_ingredients(ingr_row);
+                add_to_recipe_ingredients(ingr_row);
 
-            // Reinvoke Ingredient Table Sortability
-            invoke_sortability('#sortable-ingredients');
+                // Reinvoke Ingredient Table Sortability
+                invoke_sortability('#sortable-ingredients');
 
-            // Update Recipe Ingredients
-            //update_recipe_ingredients()
-        });
+                // Update Recipe Ingredients
+                //update_recipe_ingredients()
+            });
+        }
+        // Initialize Add Recipe Ingredient Function
+        add_recipe_ingredient();
 
         // Submit Recipe Action
         $('#submit-recipe').on('click', function() {
